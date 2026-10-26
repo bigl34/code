@@ -34,7 +34,7 @@ env:
 jobs:
   preflight:
     name: Release preflight
-    runs-on: ubuntu-24.04
+    runs-on: ubicloud-standard-4-ubuntu-2404
     timeout-minutes: 10
     outputs:
       tag: ${{ steps.release.outputs.tag }}
@@ -115,7 +115,7 @@ jobs:
   build:
     name: Build / ${{ matrix.flavor }} / ${{ matrix.name }}
     needs: preflight
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.runner == 'ubuntu-24.04' && 'ubicloud-standard-4-ubuntu-2404' || matrix.runner }}
     timeout-minutes: 35
     permissions:
       attestations: write
@@ -262,7 +262,7 @@ jobs:
       - preflight
       - build
     if: needs.preflight.outputs.publish != 'true'
-    runs-on: ubuntu-24.04
+    runs-on: ubicloud-standard-4-ubuntu-2404
     timeout-minutes: 5
 
     steps:
@@ -276,7 +276,7 @@ jobs:
     needs:
       - preflight
       - build
-    runs-on: ubuntu-24.04
+    runs-on: ubicloud-standard-4-ubuntu-2404
     timeout-minutes: 10
     if: needs.preflight.outputs.publish == 'true'
     permissions:
