@@ -20,7 +20,7 @@ env:
 jobs:
   package-smoke:
     name: Package smoke / ${{ matrix.name }}
-    runs-on: ${{ matrix.runner == 'ubuntu-24.04' && 'ubicloud-standard-4-ubuntu-2404' || matrix.runner }}
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
 
     strategy:
